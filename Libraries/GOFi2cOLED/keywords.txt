@@ -1,0 +1,80 @@
+#######################################
+# Syntax Coloring Map For GOFi2cOLED
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+GOFi2cOLED	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+init	KEYWORD1
+setNormalDisplay	KEYWORD1
+setInverseDisplay	KEYWORD1
+sendCommand	KEYWORD1
+sendData	KEYWORD1
+setPageMode	KEYWORD1
+setHorizontalMode	KEYWORD1
+setVerticalMode		KEYWORD1
+clearArea	KEYWORD1
+clearDisplay	KEYWORD1
+setBrightness	KEYWORD1
+drawChar	KEYWORD1
+drawPixel	KEYWORD1
+setCursor	KEYWORD1
+display		KEYWORD1
+drawBitmap	KEYWORD1
+setHorizontalScrollProperties	KEYWORD1
+activateScroll	KEYWORD1
+deactivateScroll	KEYWORD1
+setTextSize	KEYWORD1
+setTextColor	KEYWORD1
+setTextWrap	KEYWORD1
+setRotation	KEYWORD1
+getRotation	KEYWORD1
+height		KEYWORD1
+width		KEYWORD1
+drawRect	KEYWORD1
+fillRect	KEYWORD1
+drawFastHLine	KEYWORD1
+drawFastVLine	KEYWORD1
+drawLine	KEYWORD1
+drawTriangle	KEYWORD1
+fillTriangle	KEYWORD1
+drawRoundRect	KEYWORD1
+fillRoundRect	KEYWORD1
+drawCircle	KEYWORD1
+drawCircleHelper	KEYWORD1
+fillCircle	KEYWORD1
+fillCircleHelper	KEYWORD1
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+Scroll_Left	LITERAL1
+Scroll_Right	LITERAL1
+
+Scroll_2Frames	LITERAL1
+Scroll_3Frames	LITERAL1
+Scroll_4Frames	LITERAL1
+Scroll_5Frames	LITERAL1
+Scroll_25Frames	LITERAL1
+Scroll_64Frames	LITERAL1
+Scroll_128Frames	LITERAL1
+Scroll_256Frames	LITERAL1
+BLACK		LITERAL1
+WHITE		LITERAL1
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+GOFi2cOLED	KEYWORD2
+
+
+
