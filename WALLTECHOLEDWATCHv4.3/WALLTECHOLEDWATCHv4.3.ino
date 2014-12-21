@@ -36,7 +36,7 @@ RTC_DS1307 RTC;
 // Create the MCP9808 temperature sensor object
 Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
 
-boolean timeSet = false;
+boolean timeSet = true;
 //************NOTE************ 
 // After uploading, change the above line to false
 // and re-upload. This is very 
