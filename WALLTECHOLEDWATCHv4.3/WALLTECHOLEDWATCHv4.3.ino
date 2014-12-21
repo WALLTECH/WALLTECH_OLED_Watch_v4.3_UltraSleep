@@ -69,7 +69,7 @@ byte percent;
 
 float f;
 byte temperature[128];
-byte graphMax = 110;
+byte graphMax = 100;
 byte graphMin = 50;
 byte graphPosition = 0;
 byte point;
@@ -178,6 +178,7 @@ void loop() {
      memset(temperature,-1,sizeof(temperature));
    }
     if((byte)getTemp() < graphMin && (byte)getTemp() > -1) graphMin = (byte)getTemp();
+    if((byte)getTemp() > graphMax) graphMax = (byte)getTemp();
     
     point++;
   }
@@ -825,4 +826,3 @@ double getTemp()
   f = tempsensor.readTempC() * 9.0 / 5.0 + 32;
   return f-7.0;//wearing the watch adds ~7F to the reading
 }
-
