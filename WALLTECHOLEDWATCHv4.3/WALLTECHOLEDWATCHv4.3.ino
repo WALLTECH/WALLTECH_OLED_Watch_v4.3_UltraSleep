@@ -822,7 +822,7 @@ void checkBatteryLevel()
 
 double getTemp()
 {
-  f = tempsensor.readTempC() * 9.0 / 5.0 + 32;
+  f = tempsensor.readTempC() * 9.0 / 5.0 + 25;//wearing the watch adds ~7F to the reading
   return f;
 }
 
