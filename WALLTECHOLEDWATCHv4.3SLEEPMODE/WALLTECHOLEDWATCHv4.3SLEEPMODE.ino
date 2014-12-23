@@ -172,7 +172,10 @@ void loop() {
 
   if(now.second() % 2 == 0 && point == 0)
   {
-    temperature[graphPosition] = (byte)getTemp();
+    double temp = getTemp();
+    if(temp != 24.89) 
+    {
+      temperature[graphPosition] = (byte)temp;
     graphPosition++;
     if(graphPosition>127)
     {
@@ -183,6 +186,7 @@ void loop() {
     if((byte)getTemp() > graphMax) graphMax = (byte)getTemp();
 
     point++;
+    }
   }
 
   if (now.second() % 2 == 1) point = 0;
