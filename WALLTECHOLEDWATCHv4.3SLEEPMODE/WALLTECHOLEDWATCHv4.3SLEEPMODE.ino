@@ -707,6 +707,7 @@ void loop() {
   {
     GOFoled.clearDisplay();
     GOFoled.display();
+    GOFoled.fullOff();
 
     Wire.beginTransmission(0x18);//// MCP9808 temperature sensor shutdown v
     Wire.write((uint8_t)0x01);
@@ -737,6 +738,8 @@ void loop() {
     Wire.write(bytebuffer1);
     Wire.write(bytebuffer2); //this one is unchanged probably could skip it
     Wire.endTransmission();
+    
+    GOFoled.fullOn();
   }
 
   ////////////////////////////////////////////////////////
