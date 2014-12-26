@@ -176,16 +176,16 @@ void loop() {
     if(temp != 24.89) 
     {
       temperature[graphPosition] = (byte)temp;
-    graphPosition++;
-    if(graphPosition>127)
-    {
-      graphPosition = 0;
-      memset(temperature,-1,sizeof(temperature));
-    }
-    if((byte)getTemp() < graphMin && (byte)getTemp() > -1) graphMin = (byte)getTemp();
-    if((byte)getTemp() > graphMax) graphMax = (byte)getTemp();
+      graphPosition++;
+      if(graphPosition>127)
+      {
+        graphPosition = 0;
+        memset(temperature,-1,sizeof(temperature));
+      }
+      if((byte)getTemp() < graphMin && (byte)getTemp() > -1) graphMin = (byte)getTemp();
+      if((byte)getTemp() > graphMax) graphMax = (byte)getTemp();
 
-    point++;
+      point++;
     }
   }
 
@@ -195,35 +195,40 @@ void loop() {
 
   checkButtons();// the button states are checked again
 
-  if(buttonState_r == LOW){// if the right button is pressed, advance the faces by one and reset the sleep counter
+  if(buttonState_r == LOW)// if the right button is pressed, advance the faces by one and reset the sleep counter
+  {
     delay(100);
     face++; 
     sleepMillis = millis();
     checkBatteryLevel();
   }
 
-  if(buttonState_c == LOW){// if the center button is pressed just reset the sleep counter
+  if(buttonState_c == LOW)// if the center button is pressed just reset the sleep counter
+  {
     delay(100);
     sleepMillis = millis();
     checkBatteryLevel();
   }
 
-  if(buttonState_l == LOW){// left scroll
+  if(buttonState_l == LOW)// left scroll
+  {
     delay(100);
     face--; 
     sleepMillis = millis();
     checkBatteryLevel();
   }
 
-  if(face < 1){// loop the faces back up again
+  if(face < 1)// loop the faces back up again
+  {
     face = facenum;
   }
-  if(face > facenum){
+  if(face > facenum)
+  {
     face = 1;
   }
 
-  if (face == 1){// first face
-
+  if (face == 1)// first face
+  {
     if(timehour<10)
     {
       displayNum(18,18,timehour);// print the hour's number
@@ -282,25 +287,32 @@ void loop() {
     GOFoled.setCursor(14,57);// set cursor and print the date
     GOFoled.setTextSize(1);
 
-    if (now.dayOfWeek() == 0){
+    if (now.dayOfWeek() == 0)
+    {
       GOFoled.print(F("Sun "));
     }
-    else if (now.dayOfWeek() == 1){
+    else if (now.dayOfWeek() == 1)
+    {
       GOFoled.print(F("Mon "));
     }
-    else if (now.dayOfWeek() == 2){
+    else if (now.dayOfWeek() == 2)
+    {
       GOFoled.print(F("Tue "));
     }
-    else if (now.dayOfWeek() == 3){
+    else if (now.dayOfWeek() == 3)
+    {
       GOFoled.print(F("Wed "));
     }
-    else if (now.dayOfWeek() == 4){
+    else if (now.dayOfWeek() == 4)
+    {
       GOFoled.print(F("Thu "));
     }
-    else if (now.dayOfWeek() == 5){
+    else if (now.dayOfWeek() == 5)
+    {
       GOFoled.print(F("Fri "));
     }
-    else if (now.dayOfWeek() == 6){
+    else if (now.dayOfWeek() == 6)
+    {
       GOFoled.print(F("Sat "));
     }
 
@@ -363,8 +375,8 @@ void loop() {
 
   }
 
-  else if(face == 4){// the bitmaps are text, same as before pretty much
-
+  else if(face == 4)// the bitmaps are text, same as before pretty much
+  {
     GOFoled.drawBitmap(0, 0, its, 72, 16, WHITE);
 
     if(timeminute == 0)
@@ -407,8 +419,8 @@ void loop() {
 
   }
 
-  else if(face == 5){// this stuff does the math necessary for the analog clock face
-
+  else if(face == 5)// this stuff does the math necessary for the analog clock face
+  {
     GOFoled.drawRect( 0, 0,  128, 64, WHITE );
     GOFoled.drawFastVLine( 62, 2, 4, WHITE );
     GOFoled.drawFastVLine( 64, 2, 4, WHITE );
@@ -459,9 +471,10 @@ void loop() {
     GOFoled.print('F');
   }
 
-  else if(face == 7){// stopwatch logic
-
-    if(B == 1){
+  else if(face == 7)// stopwatch logic
+  {
+    if(B == 1)
+    {
       GOFoled.drawBitmap(46, 12, stopwatch, 36, 40,WHITE);
       GOFoled.display();
       delay(1000);
@@ -480,9 +493,9 @@ void loop() {
     // check for button press
     stopButtonState = digitalRead(cbtn);                   // read the button state and store
 
-    if (stopButtonState == LOW && laststopButtonState == HIGH  &&  blinking == false){     // check for a high to low transition
+    if (stopButtonState == LOW && laststopButtonState == HIGH  &&  blinking == false)     // check for a high to low transition
       // if true then found a new button press while clock is not running - start the clock
-
+    {
       startTime = millis();                                   // store the start time
       blinking = true;                                     // turn on blinking while timing
       delay(5);                                               // short delay to debounce switch
@@ -490,9 +503,9 @@ void loop() {
 
     }
 
-    else if (stopButtonState == LOW && laststopButtonState == HIGH && blinking == true){     // check for a high to low transition
+    else if (stopButtonState == LOW && laststopButtonState == HIGH && blinking == true)     // check for a high to low transition
       // if true then found a new button press while clock is running - stop the clock and report
-
+    {
       elapsedTime =   millis() - startTime;              // store elapsed time
       blinking = false;                                  // turn off blinking, all done timing
       laststopButtonState = stopButtonState;                     // store stopButtonState in laststopButtonState, to compare next time
@@ -517,9 +530,10 @@ void loop() {
     digitalWrite(13,LOW);
   }
 
-  else if (face == 8){// timeset
-
-    if(C == 1){
+  else if (face == 8)// timeset
+  {
+    if(C == 1)
+    {
       setminute = now.minute();
       sethour = now.hour();
       GOFoled.drawBitmap(46, 14, settime, 36, 36,WHITE);
@@ -537,7 +551,8 @@ void loop() {
     GOFoled.setCursor(57,57);
     GOFoled.print(F("|"));
 
-    while(buttonState_c == LOW){// while the center button is held
+    while(buttonState_c == LOW)// while the center button is held
+    {
       GOFoled.clearDisplay();
       checkButtons();
       GOFoled.setTextSize(2);
@@ -554,23 +569,28 @@ void loop() {
       GOFoled.setTextSize(1);
       GOFoled.print(F("Hour           Minute"));
 
-      if(buttonState_r == LOW){// right advances the minutes       
+      if(buttonState_r == LOW)// right advances the minutes 
+      {      
         delay(100);
         setminute++; 
-        if(setminute > 59){
+        if(setminute > 59)
+        {
           setminute = 0;
         } 
       }
 
-      if(buttonState_l == LOW){// left the hours
+      if(buttonState_l == LOW)// left the hours
+      {
         delay(100);
         sethour++;
-        if(sethour > 24){
+        if(sethour > 24)
+        {
           sethour = 1;
         }
       }
 
-      if(buttonState_c == HIGH){// when the center button is released, save the newly entered time
+      if(buttonState_c == HIGH)// when the center button is released, save the newly entered time
+      {
         delay(100);
         DateTime now = RTC.now();
         DateTime updated = DateTime(now.year(), now.month(), now.day(), sethour, setminute, 0);
@@ -585,9 +605,11 @@ void loop() {
     }
   }
 
-  else if(face == 9){
+  else if(face == 9)
+  {
 
-    if(D == 1){
+    if(D == 1)
+    {
       setminute = now.minute();
       sethour = now.hour();
       GOFoled.drawBitmap(46, 14, brightnesssetting, 36, 36,WHITE);
@@ -599,37 +621,43 @@ void loop() {
 
     checkButtons();
 
-    if(buttonState_c == LOW){
+    if(buttonState_c == LOW)
+    {
       delay(100);
       brightnessLevel++; 
-      if(brightnessLevel > 4){
+      if(brightnessLevel > 4)
+      {
         brightnessLevel = 1;
       } 
 
     }
 
-    if(brightnessLevel == 1){
+    if(brightnessLevel == 1)
+    {
       GOFoled.setCursor(27,56);
       GOFoled.setTextSize(1);
       GOFoled.print(F("Brightness: 1"));
       GOFoled.drawBitmap(46, 14, brightness0 ,36 , 36 ,WHITE);
       GOFoled.setBrightness(1);
     }
-    else if (brightnessLevel == 2){
+    else if (brightnessLevel == 2)
+    {
       GOFoled.setCursor(27,56);
       GOFoled.setTextSize(1);
       GOFoled.print(F("Brightness: 2"));
       GOFoled.drawBitmap(46, 14, brightness1 ,36 , 36 ,WHITE);
       GOFoled.setBrightness(50); 
     }
-    else if (brightnessLevel == 3){
+    else if (brightnessLevel == 3)
+    {
       GOFoled.setCursor(27,56);
       GOFoled.setTextSize(1);
       GOFoled.print(F("Brightness: 3"));
       GOFoled.drawBitmap(46, 14, brightness2 ,36 , 36 ,WHITE);
       GOFoled.setBrightness(150); 
     }
-    else if (brightnessLevel == 4){
+    else if (brightnessLevel == 4)
+    {
       GOFoled.setCursor(27,56);
       GOFoled.setTextSize(1);
       GOFoled.print(F("Brightness: 4"));
@@ -639,15 +667,18 @@ void loop() {
 
   }
 
-  if (face != 6){// these reset variables used to display the icons when the face changes
+  if (face != 6)// these reset variables used to display the icons when the face changes
+  {
     A = 1;
   }
 
-  if (face != 7){
+  if (face != 7)
+  {
     B = 1;
     if ( (millis() - previousMillis > 500) ) {
 
-      if (blinking == true){
+      if (blinking == true)
+      {
         previousMillis = millis();// remember the last time we blinked the LED
 
         // if the LED is off turn it on and vice-versa.
@@ -660,11 +691,13 @@ void loop() {
     }
   }
 
-  if (face != 8){
+  if (face != 8)
+  {
     C = 1;
   }
 
-  if (face != 9){
+  if (face != 9)
+  {
     D = 1;
   }
 
@@ -690,7 +723,7 @@ void loop() {
     Wire.endTransmission();
 
     sleepNow();// sleep function called here, loop resumes from here when it wakes up
-  
+
     Wire.beginTransmission(0x18);// wake the MCP9808 temperature sensor v
     Wire.write((uint8_t)0x01);
     Wire.endTransmission();
@@ -709,7 +742,8 @@ void loop() {
   ////////////////////////////////////////////////////////
   if(readVcc() > 4200)
   {
-    if (lipostat < 512){// if the battery status is low, it's charging
+    if (lipostat < 512)// if the battery status is low, it's charging
+    {
       GOFoled.clearDisplay();
       GOFoled.setBrightness(255);
       GOFoled.drawBitmap(48, 16, battplug, 32, 32, WHITE);
@@ -742,7 +776,8 @@ void loop() {
     digitalWrite(full, LOW); 
   }
 
-  while (readVcc() <= 3200){// if the power gets so low that the DS1307 glitches, the battery is dead, battery dead animation shown
+  while (readVcc() <= 3200)// if the power gets so low that the DS1307 glitches, the battery is dead, battery dead animation shown
+  {
     GOFoled.setBrightness(255);
     GOFoled.clearDisplay();
     GOFoled.drawBitmap(48, 16, emptybatt, 32, 32, WHITE);
@@ -760,14 +795,16 @@ void loop() {
 
 void textNum(int x, int y, int n)
 {
-
-  if(n < 13){
+  if(n < 13)
+  {
     GOFoled.drawBitmap(x, y, text[n-1], 72, 16, WHITE);
   }
-  else if (n > 12 && n < 20){
+  else if (n > 12 && n < 20)
+  {
     GOFoled.drawBitmap(x, y, text2[n-13], 128, 16, WHITE);
   }
-  else if(n > 19){
+  else if(n > 19)
+  {
     GOFoled.drawBitmap(x, y, text3[n/10-2], 72, 16, WHITE);
   }
 }
@@ -856,7 +893,7 @@ int readVcc() {
 
 void checkBatteryLevel()
 {
-  percent = map(readVcc(), 3200, 3780, 0, 100);
+  percent = map(readVcc(), 3125, 3780, 0, 100);
   if(percent > 100) percent = 100;
 }
 
@@ -930,5 +967,3 @@ void sleepNow()// here we put the arduino to sleep
   // wakeUpNow code will not be executed 
   // during normal running time.
 }
-
-
