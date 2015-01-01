@@ -29,7 +29,7 @@
 #include <GOFi2cOLED.h>// This library can be found here - http://www.geekonfire.com/wiki/index.php?title=I2C_OLED_Panel(128x64)
 #include "RTClib.h"//These are Adafruit libraries, support them at www.adafruit.com!
 #include "Adafruit_MCP9808.h"
-#include "images.h"
+#include "bitmaps.h"
 
 GOFi2cOLED oled;// instantiating constructors 
 RTC_DS1307 RTC;
@@ -137,7 +137,7 @@ void setup() {
   attachInterrupt(0, wakeUpNow, LOW); // use interrupt 0 (pin 2) and run function
   // wakeUpNow when pin 2 gets LOW 
 
-  oled.setRotation(2);// the screen is actually mounted upside down, so we flip it
+    oled.setRotation(2);// the screen is actually mounted upside down, so we flip it
   oled.setBrightness(255);// full brightness to start
   oled.drawBitmap(1, 25, walltech2 ,126, 15, WHITE);// logo and startup animation
   oled.display();
@@ -894,7 +894,7 @@ int readVcc() {
 
 void checkBatteryLevel()
 {
-  percent = map(readVcc(), 3000, 4200, 0, 100);
+  percent = map(readVcc(), 3000, 3780, 0, 100);
   if(percent > 100) percent = 100;
 }
 

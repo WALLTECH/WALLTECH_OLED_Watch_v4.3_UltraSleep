@@ -110,6 +110,8 @@ void setNormalDisplay();
 void setInverseDisplay();
 void sendCommand(unsigned char command);
 void sendData(unsigned char Data);
+void fullOn();
+void fullOff();
 
 void setPageMode();
 void setHorizontalMode();

@@ -492,6 +492,59 @@ void GOFi2cOLED::setPageMode()
     sendCommand(PAGE_MODE); 			        //set page addressing mode
 }
 
+void GOFi2cOLED::fullOff()
+{
+  sendCommand(GOFi2cOLED_Display_Off_Cmd);    /*display off*/
+}
+
+void GOFi2cOLED::fullOn()
+{
+ sendCommand(GOFi2cOLED_Display_Off_Cmd);    /*display off*/
+
+ sendCommand(Set_Multiplex_Ratio_Cmd);    /*multiplex ratio*/
+ sendCommand(0x3F);    /*duty = 1/64*/
+
+ sendCommand(Set_Display_Offset_Cmd);    /*set display offset*/
+ sendCommand(0x00);
+
+
+ sendCommand(0xB0); 			//set page address
+ sendCommand(0x00); 	//set column lower address
+ sendCommand(0x10); 	//set column higher address
+
+ setHorizontalMode();        /*set Page Addressing Mode*/
+
+ sendCommand(0x40);    /*set display starconstructort line*/
+
+ sendCommand(Set_Contrast_Cmd);    /*contract control*/
+ sendCommand(0xcf);    /*128*/
+
+ sendCommand(Segment_Remap_Cmd);    /*set segment remap*/
+
+ sendCommand(COM_Output_Remap_Scan_Cmd);    /*Com scan direction*/
+
+ sendCommand(GOFi2cOLED_Normal_Display_Cmd);    /*normal / reverse*/
+
+ sendCommand(Set_Display_Clock_Divide_Ratio_Cmd);    /*set osc division*/
+ sendCommand(0x80);
+
+ sendCommand(Set_Precharge_Period_Cmd);    /*set pre-charge period*/
+ sendCommand(0xf1);
+
+ sendCommand(Set_COM_Pins_Hardware_Config_Cmd);    /*set COM pins*/
+ sendCommand(0x12);
+
+ sendCommand(Set_VCOMH_Deselect_Level_Cmd);    /*set vcomh*/
+ sendCommand(0x30);
+
+ sendCommand(Deactivate_Scroll_Cmd);
+
+ sendCommand(Charge_Pump_Setting_Cmd);    /*set charge pump enable*/
+ sendCommand(Charge_Pump_Enable_Cmd);
+
+ sendCommand(GOFi2cOLED_Display_On_Cmd);    /*display ON*/
+}
+
 void GOFi2cOLED::display(void) {
   sendCommand(0x00 | 0x0);  // low col = 0
   sendCommand(0x10 | 0x0);  // hi col = 0
