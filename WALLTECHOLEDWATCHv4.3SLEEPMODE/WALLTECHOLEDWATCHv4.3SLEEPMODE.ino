@@ -97,7 +97,7 @@ byte setYear = 2014;
 boolean set = false;
 byte setSelect = 0;
 
-long PROGMEM interval = 333;
+int PROGMEM interval = 333;
 
 byte face = 1;
 byte PROGMEM facenum = 9;
@@ -137,23 +137,13 @@ void setup() {
   attachInterrupt(0, wakeUpNow, LOW); // use interrupt 0 (pin 2) and run function
   // wakeUpNow when pin 2 gets LOW 
 
-    oled.setRotation(2);// the screen is actually mounted upside down, so we flip it
+  oled.setRotation(2);// the screen is actually mounted upside down, so we flip it
   oled.setBrightness(255);// full brightness to start
   oled.drawBitmap(1, 25, walltech2 ,126, 15, WHITE);// logo and startup animation
   oled.display();
   delay(1000);
-  oled.setCursor(52,57);
-  oled.print(F("v4.3"));
-  oled.display();
-  delay(1000);
-  oled.clearDisplay();
-
-  oled.setCursor(38,7);
-  oled.print(F("John Wall"));
-  oled.setCursor(25,29);
-  oled.print(F("@walltechOSHW"));
-  oled.setCursor(20,50);
-  oled.print(F("www.walltech.cc"));
+  oled.setCursor(7,57);
+  oled.print(F("v4.3 John Wall 2014"));
   oled.display();
   delay(1000);
   oled.clearDisplay();
@@ -248,17 +238,8 @@ void loop() {
         oled.drawRect(49, 23, 3, 21, BLACK);
       }
 
-      if(timeminute<10)// add a leading zero if the minute's less than 10
-      {
-        displayNum(56,18,0);
-        displayNum(87,18,timeminute);
-      }
-
-      else
-      {
         displayNum(56,18,timeminute/10);
         displayNum(87,18,timeminute % 10);
-      }
     }
 
     else
@@ -276,60 +257,46 @@ void loop() {
         oled.drawRect(61, 23, 3, 21, BLACK);
       }
 
-      if(timeminute<10)
-      {
-        displayNum(69,18,0);
-        displayNum(100,18,timeminute);
-      }
-
-      else
-      {
         displayNum(69,18,timeminute/10);
         displayNum(100,18,timeminute % 10);
-      }
     }
 
     oled.setCursor(14,57);// set cursor and print the date
     oled.setTextSize(1);
-
-    if (now.dayOfWeek() == 0)
-    {
-      oled.print(F("Sun "));
-    }
-    else if (now.dayOfWeek() == 1)
-    {
-      oled.print(F("Mon "));
-    }
-    else if (now.dayOfWeek() == 2)
-    {
-      oled.print(F("Tue "));
-    }
-    else if (now.dayOfWeek() == 3)
-    {
-      oled.print(F("Wed "));
-    }
-    else if (now.dayOfWeek() == 4)
-    {
-      oled.print(F("Thu "));
-    }
-    else if (now.dayOfWeek() == 5)
-    {
-      oled.print(F("Fri "));
-    }
-    else if (now.dayOfWeek() == 6)
-    {
-      oled.print(F("Sat "));
+    
+    switch(now.dayOfWeek()){
+      case 0:
+       oled.print(F("Sun "));
+       break;
+      case 1:
+       oled.print(F("Mon "));
+       break;
+      case 2:
+       oled.print(F("Tue "));
+       break;
+      case 3:
+       oled.print(F("Wed "));
+       break;
+      case 4:
+       oled.print(F("Thu "));
+       break;
+      case 5:
+       oled.print(F("Fri "));
+       break;
+      case 6:
+       oled.print(F("Sat "));
+       break;
     }
 
     oled.print(now.month());
-    oled.print(F("/"));
+    oled.print('/');
     oled.print(now.day());
-    oled.print(F("/"));    
+    oled.print('/');    
     oled.print(now.year());  
 
-    oled.print(F(" "));
+    oled.print(' ');
     oled.print(percent);
-    oled.print(F("%"));
+    oled.print('%');
   }
 
   else if(face == 2)// printing each number of the time as the corresponding bitmap of the font
@@ -463,7 +430,7 @@ void loop() {
     oled.setCursor(11,0);
     oled.print(F("Temperature:"));
     oled.print(getTemp());
-    oled.print(F("F"));
+    oled.print('F');
     for(int xaxis = 0; xaxis < 128; xaxis++)
     {
       if((int)temperature[xaxis] != -1) oled.drawPixel(xaxis, map((int)temperature[xaxis], graphMin, graphMax, 63, 8), WHITE);
@@ -486,10 +453,6 @@ void loop() {
       oled.clearDisplay();
       B++;
     }
-
-    oled.setTextSize(1);
-    oled.setCursor(38,57);
-    oled.print(F("Stopwatch"));
 
     oled.setTextSize(2);
     oled.setTextColor(WHITE);
@@ -550,12 +513,12 @@ void loop() {
       setYear = now.year()%100;
       C++;
     }
-    
+
     oled.setCursor(13, 28);
     oled.print(F("Press to set time"));
     oled.setCursor(57, 57);
-    oled.print(F("V"));
-    
+    oled.print('V');
+
     checkButtons();
 
     if(buttonState_c == LOW)// enter set mode when the center button is pressed
@@ -564,42 +527,42 @@ void loop() {
       set = true;
       delay(100);
     }
-    
-     while(set == true)
-     {
-       oled.clearDisplay();
-       
-       oled.setCursor(0, 55);
-       oled.print(F("EXT"));
-       oled.setCursor(110, 55);
-       oled.print(F("SET"));
-       
-       oled.setCursor(22, 28);
-       oled.print(setHour/10);
-       oled.print(setHour%10);
-       oled.print(F(":"));
-       oled.print(setMinute/10); 
-       oled.print(setMinute%10); 
-       oled.print(F(" ")); 
-       oled.print(setMonth/10); 
-       oled.print(setMonth%10);
-       oled.print(F("/")); 
-       oled.print(setDay/10); 
-       oled.print(setDay%10); 
-       oled.print(F("/"));
-       oled.print(setYear/10);
-       oled.print(setYear%10);
-       
-       if(setSelect == 0) oled.drawLine(0, 63, 16, 63, WHITE);
-       
-       else if(setSelect == 6) oled.drawLine(110, 63, 127, 63, WHITE);
-       
-       if(setSelect > 0 && setSelect < 6)
-       {
-       oled.drawLine(((setSelect-1) * 18) + 22, 36, ((setSelect-1) * 18) + 33, 36, WHITE);
-       }
-       
-       checkButtons();
+
+    while(set == true)
+    {
+      oled.clearDisplay();
+
+      oled.setCursor(0, 55);
+      oled.print(F("EXT"));
+      oled.setCursor(110, 55);
+      oled.print(F("SET"));
+
+      oled.setCursor(22, 28);
+      oled.print(setHour/10);
+      oled.print(setHour%10);
+      oled.print(':');
+      oled.print(setHour/10);
+      oled.print(setMinute%10); 
+      oled.print(' '); 
+      oled.print(setHour/10);
+      oled.print(setMonth%10);
+      oled.print('/'); 
+      oled.print(setHour/10);
+      oled.print(setDay%10); 
+      oled.print('/');
+      oled.print(setHour/10);
+      oled.print(setYear%10);
+
+      if(setSelect == 0) oled.drawLine(0, 63, 16, 63, WHITE);
+
+      else if(setSelect == 6) oled.drawLine(110, 63, 127, 63, WHITE);
+
+      if(setSelect > 0 && setSelect < 6)
+      {
+        oled.drawLine(((setSelect-1) * 18) + 22, 36, ((setSelect-1) * 18) + 33, 36, WHITE);
+      }
+
+      checkButtons();
 
       if(buttonState_r == LOW)// right advances the selection 
       {      
@@ -624,50 +587,50 @@ void loop() {
       if(buttonState_c == LOW)// when the center button is pressed, increment the value or set/exit
       {
         delay(100);
-        
+
         switch (setSelect) {
-          case 0:
-           set = false;
-           break;
-          case 1:
-           setHour++;
-           if(setHour > 23) setHour = 0;
-           break;
-          case 2:
-           setMinute++;
-           if(setMinute > 59) setMinute = 0;
-           break;
-          case 3:
-           setMonth++;
-           if(setMonth > 12) setMonth = 1;
-           break;
-          case 4:
-           setDay++;
-           if(setDay > 31) setDay = 1;
-           break;
-          case 5:
-           setYear++;
-           break;
-          case 6:
-           DateTime now = RTC.now();
-           DateTime updated = DateTime(2000 + setYear, setMonth, setDay, setHour, setMinute, 0);
-           RTC.adjust(updated);
-           RTC.begin();
-           oled.setCursor(49, 28);
-           oled.clearDisplay();
-           oled.print("Done!");
-           oled.display();
-           delay(1000);
-           sleepMillis = millis();
-           set = false;
-           break;
-      }
+        case 0:
+          sleepMillis = millis();
+          set = false;
+          break;
+        case 1:
+          setHour++;
+          if(setHour > 23) setHour = 0;
+          break;
+        case 2:
+          setMinute++;
+          if(setMinute > 59) setMinute = 0;
+          break;
+        case 3:
+          setMonth++;
+          if(setMonth > 12) setMonth = 1;
+          break;
+        case 4:
+          setDay++;
+          if(setDay > 31) setDay = 1;
+          break;
+        case 5:
+          setYear++;
+          break;
+        case 6:
+          DateTime now = RTC.now();
+          DateTime updated = DateTime(2000 + setYear, setMonth, setDay, setHour, setMinute, 0);
+          RTC.adjust(updated);
+          RTC.begin();
+          oled.setCursor(49, 28);
+          oled.clearDisplay();
+          oled.print(F("Done!"));
+          oled.display();
+          delay(1000);
+          sleepMillis = millis();
+          set = false;
+          break;
+        }
       }
 
-      
       oled.display();
       oled.clearDisplay();
-    }
+    } 
   }
 
   else if(face == 9)
@@ -675,9 +638,7 @@ void loop() {
 
     if(D == 1)
     {
-      setMinute = now.minute();
-      setHour = now.hour();
-      oled.drawBitmap(46, 14, brightnesssetting, 36, 36,WHITE);
+      oled.drawBitmap(46, 14, brightnessIcon[0], 36, 36,WHITE);
       oled.display();
       delay(1000);
       oled.clearDisplay();
@@ -694,42 +655,15 @@ void loop() {
       {
         brightnessLevel = 1;
       } 
-
     }
 
-    if(brightnessLevel == 1)
-    {
-      oled.setCursor(27,56);
-      oled.setTextSize(1);
-      oled.print(F("Brightness: 1"));
-      oled.drawBitmap(46, 14, brightness0 ,36 , 36 ,WHITE);
-      oled.setBrightness(1);
-    }
-    else if (brightnessLevel == 2)
-    {
-      oled.setCursor(27,56);
-      oled.setTextSize(1);
-      oled.print(F("Brightness: 2"));
-      oled.drawBitmap(46, 14, brightness1 ,36 , 36 ,WHITE);
-      oled.setBrightness(50); 
-    }
-    else if (brightnessLevel == 3)
-    {
-      oled.setCursor(27,56);
-      oled.setTextSize(1);
-      oled.print(F("Brightness: 3"));
-      oled.drawBitmap(46, 14, brightness2 ,36 , 36 ,WHITE);
-      oled.setBrightness(150); 
-    }
-    else if (brightnessLevel == 4)
-    {
-      oled.setCursor(27,56);
-      oled.setTextSize(1);
-      oled.print(F("Brightness: 4"));
-      oled.drawBitmap(46, 14, brightness3 ,36 , 36 ,WHITE);
-      oled.setBrightness(255); 
-    }
-
+    oled.setCursor(27,56);
+    oled.setTextSize(1);
+    oled.print(F("Brightness: "));
+    oled.print(brightnessLevel);
+    oled.drawBitmap(46, 14, brightnessIcon[brightnessLevel] ,36 , 36 ,WHITE);
+    if(brightnessLevel == 1) oled.setBrightness(1); 
+    else oled.setBrightness((brightnessLevel*50)); 
   }
 
   if (face != 6)// these reset variables used to display the icons when the face changes
@@ -772,7 +706,6 @@ void loop() {
   {
     oled.clearDisplay();
     oled.display();
-    oled.fullOff();
 
     Wire.beginTransmission(0x18);//// MCP9808 temperature sensor shutdown v
     Wire.write((uint8_t)0x01);
@@ -803,14 +736,14 @@ void loop() {
     Wire.write(bytebuffer1);
     Wire.write(bytebuffer2); //this one is unchanged probably could skip it
     Wire.endTransmission();
-    
+
     oled.fullOn();
   }
 
   ////////////////////////////////////////////////////////
   if(readVcc() > 4200)
   {
-    if (lipostat < 512)// if the battery status is low, it's charging
+    if (lipostat < 512)// if the battery charge status is low, it's charging
     {
       oled.clearDisplay();
       oled.setBrightness(255);
@@ -828,7 +761,7 @@ void loop() {
       digitalWrite(full, LOW);
     }
 
-    else if(lipostat > 512)// if the battery state is high, and it's been plugged in and charging before this, show full
+    else if(lipostat > 512)// if the battery charging state is high, and it's been plugged in and charging before this, show full
     {
       oled.clearDisplay();
       oled.setBrightness(255);
@@ -844,7 +777,7 @@ void loop() {
     digitalWrite(full, LOW); 
   }
 
-  while (readVcc() <= 3200)// if the power gets so low that the DS1307 glitches, the battery is dead, battery dead animation shown
+  while (readVcc() <= 3100)// if the power gets low, the battery dead animation shows
   {
     oled.setBrightness(255);
     oled.clearDisplay();
@@ -961,7 +894,7 @@ int readVcc() {
 
 void checkBatteryLevel()
 {
-  percent = map(readVcc(), 3125, 3780, 0, 100);
+  percent = map(readVcc(), 3000, 4200, 0, 100);
   if(percent > 100) percent = 100;
 }
 
