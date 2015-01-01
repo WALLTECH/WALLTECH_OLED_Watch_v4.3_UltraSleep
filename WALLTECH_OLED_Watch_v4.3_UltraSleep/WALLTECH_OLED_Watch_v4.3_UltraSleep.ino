@@ -541,16 +541,16 @@ void loop() {
       oled.print(setHour/10);
       oled.print(setHour%10);
       oled.print(':');
-      oled.print(setHour/10);
+      oled.print(setMinute/10);
       oled.print(setMinute%10); 
       oled.print(' '); 
-      oled.print(setHour/10);
+      oled.print(setMonth/10);
       oled.print(setMonth%10);
       oled.print('/'); 
-      oled.print(setHour/10);
+      oled.print(setDay/10);
       oled.print(setDay%10); 
       oled.print('/');
-      oled.print(setHour/10);
+      oled.print(setYear/10);
       oled.print(setYear%10);
 
       if(setSelect == 0) oled.drawLine(0, 63, 16, 63, WHITE);
