@@ -706,6 +706,7 @@ void loop() {
   {
     oled.clearDisplay();
     oled.display();
+    oled.fullOff();
 
     Wire.beginTransmission(0x18);//// MCP9808 temperature sensor shutdown v
     Wire.write((uint8_t)0x01);
