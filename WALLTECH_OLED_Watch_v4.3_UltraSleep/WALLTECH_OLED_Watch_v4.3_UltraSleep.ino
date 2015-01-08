@@ -468,7 +468,7 @@ void loop() {
       blinking = true;                                     // turn on blinking while timing
       delay(5);                                               // short delay to debounce switch
       laststopButtonState = stopButtonState;                          // store stopButtonState in laststopButtonState, to compare next time
-
+      displayStopwatch(elapsedTime);
     }
 
     else if (stopButtonState == LOW && laststopButtonState == HIGH && blinking == true)     // check for a high to low transition
@@ -477,7 +477,6 @@ void loop() {
       elapsedTime =   millis() - startTime;              // store elapsed time
       blinking = false;                                  // turn off blinking, all done timing
       laststopButtonState = stopButtonState;                     // store stopButtonState in laststopButtonState, to compare next time
-      displayStopwatch(elapsedTime);
     }
 
     else{
