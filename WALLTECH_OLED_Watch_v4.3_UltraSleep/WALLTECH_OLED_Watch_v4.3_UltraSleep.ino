@@ -168,8 +168,7 @@ void loop() {
   if(now.second() % 2 == 0 && point == 0)
   {
     double temp = getTemp();
-    if(temp != 24.89) 
-    {
+  
       temperature[graphPosition] = (byte)temp;
       graphPosition++;
       if(graphPosition>127)
@@ -177,11 +176,11 @@ void loop() {
         graphPosition = 0;
         memset(temperature,-1,sizeof(temperature));
       }
-      if((byte)getTemp() < graphMin && (byte)getTemp() > -1) graphMin = (byte)getTemp();
+      if((byte)getTemp() < graphMin && (byte)getTemp() >= 32) graphMin = (byte)getTemp();
       if((byte)getTemp() > graphMax) graphMax = (byte)getTemp();
 
       point++;
-    }
+    
   }
 
   if (now.second() % 2 == 1) point = 0;
@@ -741,12 +740,15 @@ void loop() {
   }
 
   ////////////////////////////////////////////////////////
-  if(readVcc() > 4200)
+  while(readVcc() > 4200)
   {
+  	
+  	oled.setBrightness(255);
+  	
     if (lipostat < 512)// if the battery charge status is low, it's charging
     {
       oled.clearDisplay();
-      oled.setBrightness(255);
+      
       oled.drawBitmap(48, 16, battplug, 32, 32, WHITE);
       oled.setCursor(48,57);
       oled.print(readVcc());
@@ -755,7 +757,7 @@ void loop() {
       // change the brightness for next time through the loop:
       brightness = brightness + fadeAmount;
       // reverse the direction of the fading at the ends of the fade: 
-      if (brightness == 0 || brightness == 100) {
+      if (brightness == 0 || brightness == 50) {
         fadeAmount = -fadeAmount ; 
       }     
       digitalWrite(full, LOW);
@@ -764,15 +766,16 @@ void loop() {
     else if(lipostat > 512)// if the battery charging state is high, and it's been plugged in and charging before this, show full
     {
       oled.clearDisplay();
-      oled.setBrightness(255);
       oled.drawBitmap(48, 16, fullbatt , 32, 32, WHITE);
       digitalWrite(full, HIGH);
       digitalWrite(charge, LOW); 
     }
-    sleepMillis = millis();
+   oled.display();
+   oled.clearDisplay();
   }
-
-  else{
+  
+  if(readVcc() < 4200)
+  {
     digitalWrite(charge, LOW); 
     digitalWrite(full, LOW); 
   }
