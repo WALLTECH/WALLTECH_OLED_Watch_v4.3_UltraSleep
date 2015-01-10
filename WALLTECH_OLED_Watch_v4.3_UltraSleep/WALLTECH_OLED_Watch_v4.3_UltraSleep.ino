@@ -419,7 +419,7 @@ void loop() {
     oled.drawLine( 63, 32, 63 + 15 * cos( ( 270 + now.hour() % 12 * 30 + now.minute() * 0.5 ) * 3.14159 / 180 ),32 + 15 * sin( ( 270 + now.hour() % 12 * 30 + now.minute() * 0.5 ) * 3.14159 / 180 ), WHITE );    
   }
 
-  else if(face == 6)//temperature sensor
+  else if(face == 6)//temperature sensor/graph
   {
     if(A == 1) 
     {
@@ -635,7 +635,7 @@ void loop() {
     } 
   }
 
-  else if(face == 9)
+  else if(face == 9)// brightness adjustment
   {
 
     if(D == 1)
@@ -744,7 +744,7 @@ void loop() {
   }
 
   ////////////////////////////////////////////////////////
-  while(readVcc() > 4200)
+  while(readVcc() > 4200)// when the watch senses 5v of USB on its VCC (plugged in)
   {
   	
   	oled.setBrightness(255);
@@ -753,7 +753,7 @@ void loop() {
     {
       oled.clearDisplay();
       
-      oled.drawBitmap(48, 16, battplug, 32, 32, WHITE);
+      oled.drawBitmap(48, 16, battplug, 32, 32, WHITE);// show the plugged in animation and USB voltage
       oled.setCursor(48,57);
       oled.print(readVcc());
       oled.print(F("mV"));
@@ -778,7 +778,7 @@ void loop() {
    oled.clearDisplay();
   }
   
-  if(readVcc() < 4200)
+  if(readVcc() < 4200)// when not plugged in, keep the charging/full LEDs off
   {
     digitalWrite(charge, LOW); 
     digitalWrite(full, LOW); 
