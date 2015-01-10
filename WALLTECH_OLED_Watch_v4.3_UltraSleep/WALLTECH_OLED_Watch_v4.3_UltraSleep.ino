@@ -167,17 +167,21 @@ void loop() {
 
   if(now.second() % 2 == 0 && point == 0)
   {
-    double temp = getTemp();
-  
+      double temp = getTemp();
+      
+      if(temp != 24.89)
+      {
       temperature[graphPosition] = (byte)temp;
       graphPosition++;
+      }
+      
       if(graphPosition>127)
       {
         graphPosition = 0;
         memset(temperature,-1,sizeof(temperature));
       }
-      if((byte)getTemp() < graphMin && (byte)getTemp() >= 32) graphMin = (byte)getTemp();
-      if((byte)getTemp() > graphMax) graphMax = (byte)getTemp();
+      if((byte)temp < graphMin) graphMin = (byte)temp;
+      if((byte)temp > graphMax) graphMax = (byte)temp;
 
       point++;
     
@@ -780,7 +784,7 @@ void loop() {
     digitalWrite(full, LOW); 
   }
 
-  while (readVcc() <= 3100)// if the power gets low, the battery dead animation shows
+  while (percent < 5)// if the power gets low, the battery dead animation shows
   {
     oled.setBrightness(255);
     oled.clearDisplay();
