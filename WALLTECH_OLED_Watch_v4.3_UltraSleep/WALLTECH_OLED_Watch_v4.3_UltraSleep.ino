@@ -45,9 +45,9 @@ boolean timeSet = false;
 // time every power cycle instead 
 // of keeping with the current time.
 
-byte PROGMEM lbtn = 4;// naming the button pins
-byte PROGMEM cbtn = 2;
-byte PROGMEM rbtn = A1;
+const byte PROGMEM lbtn = 4;// naming the button pins
+const byte PROGMEM cbtn = 2;
+const byte PROGMEM rbtn = A1;
 
 byte timehour;// declaring all program variables
 byte timeminute;
@@ -59,10 +59,10 @@ byte buttonState_l;
 byte buttonState_c;
 byte buttonState_r;
 
-byte PROGMEM charge = 3;
-byte PROGMEM full = A3;
+const byte PROGMEM charge = 3;
+const byte PROGMEM full = A3;
 byte brightness = 0;// how bright the charging LED is
-byte fadeAmount = 5;// how many points to fade the charging LED by
+byte fadeAmount = 1;// how many points to fade the charging LED by
 byte ledstate = LOW;
 int lipostat;//Charge status
 byte percent;
@@ -75,7 +75,7 @@ byte graphPosition = 0;
 byte point;
 
 int value = LOW;// previous value of the LED
-int PROGMEM stopwatchblink = 1000;
+const int PROGMEM stopwatchblink = 1000;
 int stopButtonState;
 int laststopButtonState;// variable to store last button state
 byte blinking;// condition for blinking - timer is timing
@@ -97,10 +97,10 @@ byte setYear = 2014;
 boolean set = false;
 byte setSelect = 0;
 
-int PROGMEM interval = 333;
+const int PROGMEM interval = 333;
 
 byte face = 1;
-byte PROGMEM facenum = 9;
+const byte PROGMEM facenum = 9;
 
 byte brightnessLevel = 4;
 
