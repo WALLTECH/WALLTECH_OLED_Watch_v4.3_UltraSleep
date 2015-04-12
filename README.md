@@ -1,4 +1,4 @@
-WALLTECH OLED Watch v4.3 UltraSleep
+WΛLLTΞCH OLED Watch v4.3 UltraSleep
 ===================================
 
 This is the repository for the hardware files and source code of the latest prototype of the WΛLLTΞCH OLED wristwatch. v4.3 now has a MCP9808 temperature sensor and interrupt connections to enable an ultra deep sleep mode that allows 3 weeks on the watch's 300mAh LiPo battery instead of the previous version's 2 days!
