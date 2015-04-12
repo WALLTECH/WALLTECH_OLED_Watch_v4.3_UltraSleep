@@ -7,22 +7,27 @@
  *    \ \____________\ \__\ \__\ \_______\ \_______\ \__\ \ \_______\ \_______\ \__\ \__\
  *     \|____________|\|__|\|__|\|_______|\|_______|\|__|  \|_______|\|_______|\|__|\|__|
  * 
- * This is the default code for the Walltech OLED Watch v4.3
+ * This is the default code for the WΛLLTΞCH OLED Watch v4.3
  * 
- * Designed specifically to work with the Walltech OLED Watch v4.3:
- * ----> http://wp.me/P4qDhv-fm
+ * Designed specifically to work with the WΛLLTΞCH OLED Watch v4.3:
+ * ----> http://www.walltech.cc/oled-watch/
  * 
- * Walltech invests time and resources providing this open source code, 
- * please support Walltech and open-source hardware by donating any amount!
+ * WΛLLTΞCH invests time and resources providing this open source code, 
+ * please support WΛLLTΞCH and open-source hardware by donating any amount!
  * https://www.paypal.com/us/cgi-bin/webscr?cmd=_flow&SESSION=LrIWifBuf102Rn7Ang7qJLttsEWICxRtd9iYW6zG0OBBt_zN2z6srd7XQXa&dispatch=5885d80a13c0db1f8e263663d3faee8d6cdb53fcfca2b5941339e576d7e42259
  * 
- * Written by John Wall for Walltech.  
- * BSD license, all text above must be included in any redistribution
+ * Written by John Wall for WΛLLTΞCH.  
+ * Please observe the CC license below and attribute WΛLLTΞCH in any reused code. Thanks!
  * 
- * Creative Commons License
- * This work by Walltech Industries is licensed
- * under a Creative Commons Attribution-ShareAlike 4.0 International License.
- * Largely based on a work at http://www.arduino.cc
+ * WΛLLTΞCH CC Licenses
+ * ====================
+ * The WΛLLTΞCH OLED Watch by WΛLLTΞCH Electronics is licensed under a 
+ * Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
+ * http://creativecommons.org/licenses/by-nc-sa/4.0/
+ *
+ * WΛLLTΞCH images and logos by WΛLLTΞCH Electronics are licensed under a 
+ * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ * http://creativecommons.org/licenses/by-nc-nd/4.0/
  *****************************************************************************************/
 #include <avr/sleep.h>
 #include <Wire.h>// Including the necessary libraries
